@@ -2,7 +2,7 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { sql } from "drizzle-orm";
-import { index, int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
+import { int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -10,21 +10,20 @@ import { index, int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = sqliteTableCreator((name) => `farcaster-notcoin_${name}`);
-
-export const posts = createTable(
-  "post",
-  {
-    id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-    name: text("name", { length: 256 }),
-    createdAt: int("created_at", { mode: "timestamp" })
-      .default(sql`(unixepoch())`)
-      .notNull(),
-    updatedAt: int("updated_at", { mode: "timestamp" }).$onUpdate(
-      () => new Date()
-    ),
-  },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
+export const createTable = sqliteTableCreator(
+  (name) => `farcaster-notcoin_${name}`,
 );
+
+export const users = createTable("users", {
+  fid: int("fid", { mode: "number" }),
+  username: text("username", { length: 256 }).notNull(),
+  displayName: text("display_name", { length: 256 }).notNull(),
+  avatar: text("avatar", { length: 256 }).notNull(),
+  score: int("score", { mode: "number" }).default(0).notNull(),
+  createdAt: int("created_at")
+    .default(sql`(unixepoch())`)
+    .notNull(),
+  updatedAt: int("updated_at")
+    .default(0)
+    .$onUpdate(() => Math.floor(new Date().getTime() / 1000)),
+});
