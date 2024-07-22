@@ -1,3 +1,4 @@
+import "~/styles/notcoin.css";
 import { type GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 import { getServerProxySSGHelpers } from "./utils/ssg";

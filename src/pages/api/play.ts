@@ -36,7 +36,7 @@ export default async function handler(
     } else {
       res.status(404).json({
         type: "form",
-        title: "Notcoin", // e.g. "Create Poll," "Create Event", "New Bounty"
+        title: "Notcoin",
         url: "https://test.xx.com?token=ss",
       });
     }
@@ -44,7 +44,7 @@ export default async function handler(
 
   res.status(200).json({
     type: "form",
-    title: "Notcoin", // e.g. "Create Poll," "Create Event", "New Bounty"
+    title: "Notcoin",
     url: "https://test.xxx.com?token=ss",
   });
 }
