@@ -45,10 +45,18 @@ export default async function handler(
             avatar: result.action.interactor.pfp_url ?? "",
           })
           .onConflictDoNothing();
+        // const stateObject = decodeURIComponent(data.untrustedData.state);
+        // const t = JSON.parse(stateObject) as {
+        //   cast: {
+        //     text: string;
+        //   };
+        // };
+        // const stateString = JSON.stringify(t.cast);
+        // console.log(stateString);
         res.status(200).json({
           type: "form",
           title: "Cast AI Editor",
-          url: `https://apps.recaster.org/editor?token=${token}`,
+          url: `https://apps.recaster.org/editor?token=${token}&state=${data.untrustedData.state}`, // save to db? maybe too long?
         });
         return;
       }

@@ -28,17 +28,21 @@ import { getServerProxySSGHelpers } from "~/utils/ssg";
 export default function EditorPage({
   user,
   token,
+  state,
 }: {
   token: string;
+  state: string;
   user?: { fid: number; username: string; avatar: string; displayName: string };
 }) {
   const answerRef = useRef<null | HTMLDivElement>(null);
-  // const scrollToAnswer = () => {
-  //   if (answerRef.current !== null) {
-  //     console.log("scrolling");
-  //     answerRef.current.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // };
+
+  const parsedCast = JSON.parse(decodeURIComponent(state)) as {
+    cast: {
+      text: string;
+      embeds: string[];
+      parent?: string;
+    };
+  };
 
   const { complete, completion, isLoading, handleSubmit } = useCompletion({
     api: "/api/completion",
@@ -59,7 +63,7 @@ export default function EditorPage({
 
   const form = useForm({
     defaultValues: {
-      text: "",
+      text: parsedCast.cast.text,
       prompt: "",
     },
   });
@@ -190,9 +194,9 @@ export default function EditorPage({
                           type: "createCast",
                           data: {
                             cast: {
-                              parent: "",
+                              parent: parsedCast.cast?.parent,
                               text: answer,
-                              embeds: [],
+                              embeds: parsedCast.cast.embeds,
                             },
                           },
                         },
@@ -213,7 +217,7 @@ export default function EditorPage({
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const params = ctx.query as { token?: string };
+  const params = ctx.query as { token?: string; state: string };
   if (!params?.token) {
     return {
       props: {
@@ -222,11 +226,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
   const token = params.token;
+  const state = params.state;
   const ssg = await getServerProxySSGHelpers();
   const user = await ssg.editor.getUser({ token: token });
   return {
     props: {
       token: token,
+      state: state,
       user: user,
     },
   };
