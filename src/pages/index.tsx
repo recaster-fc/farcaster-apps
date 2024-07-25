@@ -20,6 +20,11 @@ export default function Home() {
         title="Farcaster Apps"
         description="Some open source apps for Farcaster created by Haole"
       />
+      <div className="absolute right-0 top-0 p-4">
+        <a href="https://github.com/recaster-fc/farcaster-apps" target="_blank">
+          <img src="/_images/github.png" className="h-12 w-12 rounded-full" />
+        </a>
+      </div>
       <div className="mx-auto max-w-screen-md flex-1">
         <div className="mt-8 text-center md:mt-12">
           <h1 className="bg-gradient-to-r from-pink-500 via-red-600 to-orange-400 bg-clip-text text-4xl font-bold text-transparent">
@@ -47,7 +52,7 @@ export default function Home() {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="https://warpcast.com/haole"
+          href="https://recaster.org"
           className="mt-20 hover:text-[#8a63D2]"
         >
           Recaster@{new Date().getFullYear()} - Made with ❤️ by Haole
