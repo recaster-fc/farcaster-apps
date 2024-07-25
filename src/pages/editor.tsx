@@ -20,8 +20,8 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
-import { getServerProxySSGHelpers } from "./utils/ssg";
 import { api } from "~/utils/api";
+import { getServerProxySSGHelpers } from "~/utils/ssg";
 
 export default function EditorPage({
   user,
