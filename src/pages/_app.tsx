@@ -8,6 +8,10 @@ import "~/styles/globals.css";
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <div className={GeistSans.className}>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      ></meta>
       <Component {...pageProps} />
     </div>
   );

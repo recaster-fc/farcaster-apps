@@ -27,3 +27,29 @@ export const users = createTable("users", {
     .default(0)
     .$onUpdate(() => Math.floor(new Date().getTime() / 1000)),
 });
+
+export const prompts = createTable("prompts", {
+  id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  fid: int("fid", { mode: "number" }),
+  name: text("name", { length: 256 }).notNull(),
+  prompt: text("prompt").notNull(),
+  createdAt: int("created_at")
+    .default(sql`(unixepoch())`)
+    .notNull(),
+  updatedAt: int("updated_at")
+    .default(0)
+    .$onUpdate(() => Math.floor(new Date().getTime() / 1000)),
+});
+
+export const editor_users = createTable("editor_users", {
+  fid: int("fid", { mode: "number" }).primaryKey(),
+  username: text("username", { length: 256 }).notNull(),
+  displayName: text("display_name", { length: 256 }).notNull(),
+  avatar: text("avatar", { length: 256 }).notNull(),
+  createdAt: int("created_at")
+    .default(sql`(unixepoch())`)
+    .notNull(),
+  updatedAt: int("updated_at")
+    .default(0)
+    .$onUpdate(() => Math.floor(new Date().getTime() / 1000)),
+});

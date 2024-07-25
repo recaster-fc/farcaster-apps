@@ -1,5 +1,6 @@
 import { gameRouter } from "~/server/api/routers/game";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
+import { editorRouter } from "./routers/editor";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +9,7 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   game: gameRouter,
+  editor: editorRouter,
 });
 
 // export type definition of API
