@@ -8,6 +8,7 @@ export const env = createEnv({
    */
   server: {
     DATABASE_URL: z.string().url(),
+    DATABASE_AUTH_TOKEN: z.string(),
     NEYNAR_API_KEY: z.string(),
     SECRERT_KEY: z.string(),
     NODE_ENV: z
@@ -30,6 +31,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
+    DATABASE_AUTH_TOKEN: process.env.DATABASE_AUTH_TOKEN,
     NEYNAR_API_KEY: process.env.NEYNAR_API_KEY,
     SECRERT_KEY: process.env.SECRERT_KEY,
     NODE_ENV: process.env.NODE_ENV,
