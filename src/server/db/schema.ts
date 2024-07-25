@@ -15,7 +15,7 @@ export const createTable = sqliteTableCreator(
 );
 
 export const notcoin_users = createTable("notcoin_users", {
-  fid: int("fid", { mode: "number" }),
+  fid: int("fid", { mode: "number" }).primaryKey(),
   username: text("username", { length: 256 }).notNull(),
   displayName: text("display_name", { length: 256 }).notNull(),
   avatar: text("avatar", { length: 256 }).notNull(),

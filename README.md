@@ -22,6 +22,5 @@ pnpm run db:push
 ## TODO
 
 - [ ] Better auth handle
-- [ ] Pass State data
 - [ ] Create Frames for Notcoin Leaderboard
 - [ ] Store apps into DB

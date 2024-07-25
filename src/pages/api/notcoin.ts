@@ -44,7 +44,9 @@ export default async function handler(
             displayName: result.action.interactor.display_name ?? "",
             avatar: result.action.interactor.pfp_url ?? "",
           })
-          .onConflictDoNothing();
+          .onConflictDoNothing({
+            target: notcoin_users.fid,
+          });
         res.status(200).json({
           type: "form",
           title: "NotCoin",
