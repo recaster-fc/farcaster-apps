@@ -29,17 +29,17 @@ export default function Home() {
 
         <div className="mt-20 grid grid-cols-2">
           {data.map((item) => (
-            <div
+            <a
               key={item.name}
-              className="flex flex-col items-center justify-center p-4"
+              href={item.href}
+              target="_blank"
+              className="flex flex-col items-center justify-center rounded-md p-4 hover:bg-muted"
             >
               <img src={item.logo} alt={item.name} className="h-20 w-20" />
               <Button className="mt-4 text-lg font-bold" variant={"link"}>
-                <a href={item.href} target="_blank">
-                  {item.name}
-                </a>
+                {item.name}
               </Button>
-            </div>
+            </a>
           ))}
         </div>
       </div>
