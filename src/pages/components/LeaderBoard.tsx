@@ -54,7 +54,7 @@ const LeaderBoardItem: React.FC<LeaderBoardItemProps> = ({
 };
 
 export default function LeaderBoard({ onClose }: { onClose?: () => void }) {
-  const { data } = api.game.getLeaderBoard.useQuery();
+  const { data } = api.notcoin.getLeaderBoard.useQuery();
   return (
     <div className="overflow-hidden rounded-lg bg-[#fad258] shadow-lg">
       <div className="flex items-center justify-between bg-yellow-400 px-4 py-3">

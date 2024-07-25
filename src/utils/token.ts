@@ -12,3 +12,11 @@ export function decryptFid(token: string): number {
     return 0;
   }
 }
+
+export function encryptFid(fid: number) {
+  const encrypted = crypto.AES.encrypt(
+    fid.toString(),
+    env.SECRERT_KEY,
+  ).toString();
+  return encrypted.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}

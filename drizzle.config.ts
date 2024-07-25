@@ -8,5 +8,5 @@ export default {
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  tablesFilter: ["farcaster-notcoin_*"],
+  tablesFilter: ["farcaster_apps_*"],
 } satisfies Config;

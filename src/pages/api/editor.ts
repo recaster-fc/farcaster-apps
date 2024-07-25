@@ -1,19 +1,12 @@
 import { env } from "~/env";
-import * as crypto from "crypto-js";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { NeynarAPIClient } from "@neynar/nodejs-sdk";
 import { db } from "~/server/db";
 import { editor_users } from "~/server/db/schema";
+import { encryptFid } from "~/utils/token";
 
-function encryptFid(fid: number) {
-  const encrypted = crypto.AES.encrypt(
-    fid.toString(),
-    env.SECRERT_KEY,
-  ).toString();
-  return encrypted.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-}
 const neynarClient = new NeynarAPIClient(env.NEYNAR_API_KEY);
 
 export default async function handler(

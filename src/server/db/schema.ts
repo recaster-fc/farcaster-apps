@@ -11,10 +11,10 @@ import { int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
 export const createTable = sqliteTableCreator(
-  (name) => `farcaster-notcoin_${name}`,
+  (name) => `farcaster_apps_${name}`,
 );
 
-export const users = createTable("users", {
+export const notcoin_users = createTable("notcoin_users", {
   fid: int("fid", { mode: "number" }),
   username: text("username", { length: 256 }).notNull(),
   displayName: text("display_name", { length: 256 }).notNull(),

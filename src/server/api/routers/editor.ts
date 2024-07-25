@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { prompts } from "~/server/db/schema";
-import { decryptFid } from "~/server/utils/decodeToken";
+import { decryptFid } from "~/utils/token";
 
 export const editorRouter = createTRPCRouter({
   addPrompt: publicProcedure
@@ -54,7 +54,7 @@ export const editorRouter = createTRPCRouter({
       });
 
       if (!user) {
-        throw new Error("User not found");
+        return null;
       }
       return user;
     }),

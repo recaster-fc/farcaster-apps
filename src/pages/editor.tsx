@@ -1,5 +1,7 @@
 import { useCompletion } from "ai/react";
 import { type GetServerSideProps } from "next";
+import { NextSeo } from "next-seo";
+
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { PromptAddDialog } from "~/components/PromptAddDialog";
@@ -66,28 +68,27 @@ export default function EditorPage({
       answerRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [completion]);
-  if (!user) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="rounded-lg bg-white p-4 shadow-lg">
-          <h1 className="text-2xl font-bold">
-            Please use through Farcaster Client
-          </h1>
-        </div>
-      </div>
-    );
-  }
   const answer = completion;
 
   return (
     <div className="mx-auto flex max-w-screen-md flex-col items-center justify-center pt-10">
-      <div className="mb-4 flex w-3/4 flex-row items-center justify-start md:w-2/3">
-        <img src={user.avatar} alt="Logo" className="h-12 w-12 rounded-full" />
-        <div className="ml-2">
-          <h1 className="font-medium">{user.displayName}</h1>
-          <p className="text-muted-foreground">@{user.username}</p>
+      <NextSeo
+        title="Cast AI Editor"
+        description="use AI to help you create cast"
+      />
+      {user && (
+        <div className="mb-4 flex w-3/4 flex-row items-center justify-start md:w-2/3">
+          <img
+            src={user.avatar}
+            alt="Logo"
+            className="h-12 w-12 rounded-full"
+          />
+          <div className="ml-2">
+            <h1 className="font-medium">{user.displayName}</h1>
+            <p className="text-muted-foreground">@{user.username}</p>
+          </div>
         </div>
-      </div>
+      )}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((data) => {
@@ -119,7 +120,13 @@ export default function EditorPage({
               <FormItem>
                 <div className="flex flex-row items-center justify-between">
                   <FormLabel className="text-base">Choose Prompt</FormLabel>
-                  <PromptAddDialog token={token} />
+                  {user ? (
+                    <PromptAddDialog token={token} />
+                  ) : (
+                    <Button variant={"secondary"} disabled>
+                      Add Prompt
+                    </Button>
+                  )}
                 </div>
 
                 <Select
@@ -151,9 +158,15 @@ export default function EditorPage({
             )}
           />
           <div className="flex flex-row justify-center">
-            <Button className="w-full" type="submit" loading={isLoading}>
-              Submit
-            </Button>
+            {user ? (
+              <Button className="w-full" type="submit" loading={isLoading}>
+                Submit
+              </Button>
+            ) : (
+              <Button className="w-full" disabled>
+                Please open with Farcaster client
+              </Button>
+            )}
           </div>
         </form>
       </Form>
