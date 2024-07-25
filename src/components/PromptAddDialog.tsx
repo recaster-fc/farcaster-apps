@@ -47,7 +47,7 @@ export function PromptAddDialog({ token }: { token: string }) {
             <Label htmlFor="prompt">Prompt</Label>
             <Textarea
               id="prompt"
-              placeholder="Translate the following content into English."
+              placeholder="Translate the following text into concise English, without any unnecessary explanation."
               className="min-h-[150px]"
               onChange={(e) => {
                 setPrompt(e.target.value);
@@ -57,6 +57,7 @@ export function PromptAddDialog({ token }: { token: string }) {
         </div>
         <DialogFooter>
           <Button
+            disabled={name.length === 0 || prompt.length === 0}
             loading={mutation.isPending}
             onClick={() => {
               mutation.mutate(

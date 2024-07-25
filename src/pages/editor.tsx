@@ -1,9 +1,10 @@
 import { useCompletion } from "ai/react";
 import { type GetServerSideProps } from "next";
 import { NextSeo } from "next-seo";
-
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { PromptAddDialog } from "~/components/PromptAddDialog";
 import { Button } from "~/components/ui/button";
 import {
@@ -25,6 +26,11 @@ import { Textarea } from "~/components/ui/textarea";
 import { api } from "~/utils/api";
 import { getServerProxySSGHelpers } from "~/utils/ssg";
 
+const EditorSchema = z.object({
+  text: z.string().min(1),
+  prompt: z.string().min(10),
+});
+
 export default function EditorPage({
   user,
   token,
@@ -36,7 +42,12 @@ export default function EditorPage({
 }) {
   const answerRef = useRef<null | HTMLDivElement>(null);
 
-  const parsedCast = JSON.parse(decodeURIComponent(state)) as {
+  const parsedCast = JSON.parse(
+    decodeURIComponent(
+      state ||
+        "%7B%22cast%22%3A%7B%22text%22%3A%22%22%2C%22embeds%22%3A%5B%5D%7D%7D",
+    ),
+  ) as {
     cast: {
       text: string;
       embeds: string[];
@@ -61,7 +72,8 @@ export default function EditorPage({
     },
   );
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof EditorSchema>>({
+    resolver: zodResolver(EditorSchema),
     defaultValues: {
       text: parsedCast.cast.text,
       prompt: "",
@@ -149,12 +161,44 @@ export default function EditorPage({
                       </SelectItem>
                     ))}
                     <SelectItem
-                      key={0}
+                      key="-1"
                       value={
-                        "Translate the following text into English, without any unnecessary explanation."
+                        "Translate the following text into concise English, without any unnecessary explanation."
                       }
                     >
                       Translate into English
+                    </SelectItem>
+                    <SelectItem
+                      key="-2"
+                      value={
+                        "Rewrite following text to be clearer, easier to comprehend, and less confusing.Only give me the output and nothing else. "
+                      }
+                    >
+                      Simplify Language
+                    </SelectItem>
+                    <SelectItem
+                      key="-3"
+                      value={
+                        "Rewrite following text to be no more than half the number of characters while keeping the core meaning the same. Output only the rewritten text, without any quotes or other formatting."
+                      }
+                    >
+                      Make shorter
+                    </SelectItem>
+                    <SelectItem
+                      key="-4"
+                      value={
+                        "Please rewrite following text to be twice as long, while keeping the core meaning the same. Do not add any completely new information, ideas or opinions."
+                      }
+                    >
+                      Make longer
+                    </SelectItem>
+                    <SelectItem
+                      key="-5"
+                      value={
+                        "PHelp me generate a post based on the following topics or keywords, no longer than 300 words."
+                      }
+                    >
+                      Generate Cast
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -179,7 +223,7 @@ export default function EditorPage({
           <>
             <div>
               <h2 className="text-2xl font-bold">
-                Your generated cast, click to cast
+                Generated cast, click to use
               </h2>
             </div>
             <div className="flex flex-col space-y-8">
@@ -217,7 +261,7 @@ export default function EditorPage({
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const params = ctx.query as { token?: string; state: string };
+  const params = ctx.query as { token?: string; state?: string };
   if (!params?.token) {
     return {
       props: {

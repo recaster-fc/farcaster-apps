@@ -8,8 +8,8 @@ export const editorRouter = createTRPCRouter({
   addPrompt: publicProcedure
     .input(
       z.object({
-        name: z.string(),
-        prompt: z.string(),
+        name: z.string().min(1),
+        prompt: z.string().min(1),
         token: z.string().min(1),
       }),
     )
