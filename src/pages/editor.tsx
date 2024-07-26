@@ -135,7 +135,9 @@ export default function EditorPage({
             render={({ field }) => (
               <FormItem>
                 <div className="flex flex-row items-center justify-between">
-                  <FormLabel className="text-base">Choose Prompt</FormLabel>
+                  <FormLabel className="text-base">
+                    What to do with your cast
+                  </FormLabel>
                   {user ? (
                     <PromptAddDialog token={token} />
                   ) : (

@@ -73,7 +73,7 @@ export function PromptAddDialog({ token }: { token: string }) {
               );
             }}
           >
-            Save
+            Add
           </Button>
         </DialogFooter>
       </DialogContent>
