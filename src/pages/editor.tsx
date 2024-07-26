@@ -208,7 +208,7 @@ export default function EditorPage({
           <div className="flex flex-row justify-center">
             {user ? (
               <Button className="w-full" type="submit" loading={isLoading}>
-                Submit
+                Generate
               </Button>
             ) : (
               <Button className="w-full" disabled>
@@ -223,7 +223,7 @@ export default function EditorPage({
           <>
             <div>
               <h2 className="text-2xl font-bold">
-                Generated cast, click to use
+                Generated cast, click to use:
               </h2>
             </div>
             <div className="flex flex-col space-y-8">
