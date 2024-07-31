@@ -90,7 +90,7 @@ export default function EditorPage({
     <div className="mx-auto flex max-w-screen-md flex-col items-center justify-center pt-10">
       <NextSeo
         title="Cast AI Editor"
-        description="use AI to help you create cast"
+        description="Use AI to help you create better cast"
       />
       {user && (
         <div className="mb-4 flex w-3/4 flex-row items-center justify-start md:w-2/3">

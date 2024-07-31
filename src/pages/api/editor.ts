@@ -67,7 +67,7 @@ export default async function handler(
       type: "composer",
       name: "Cast AI Editor",
       icon: "pencil",
-      description: "Use AI to help you create cast",
+      description: "Create cast with AI",
       aboutUrl: "https://apps.recaster.org/",
       imageUrl: "https://apps.recaster.org/_images/editor.png",
       action: {
