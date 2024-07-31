@@ -93,7 +93,7 @@ export default function EditorPage({
         description="Use AI to help you create better cast"
       />
       {user && (
-        <div className="mb-4 flex w-3/4 flex-row items-center justify-start md:w-2/3">
+        <div className="mb-4 flex w-full flex-row items-center justify-start px-4 md:w-2/3">
           <img
             src={user.avatar}
             alt="Logo"
@@ -111,7 +111,7 @@ export default function EditorPage({
             void complete(`${data.prompt}: ${data.text}`);
             handleSubmit();
           })}
-          className="w-3/4 space-y-6 md:w-2/3"
+          className="w-full space-y-6 px-4 md:w-2/3"
         >
           <FormField
             control={form.control}

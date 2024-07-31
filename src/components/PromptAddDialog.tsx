@@ -25,7 +25,7 @@ export function PromptAddDialog({ token }: { token: string }) {
       <DialogTrigger asChild>
         <Button variant="secondary">Add Prompt</Button>
       </DialogTrigger>
-      <DialogContent className="w-4/5 sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Prompt</DialogTitle>
           <DialogDescription>
